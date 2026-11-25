@@ -277,6 +277,7 @@ src/classify.ts             email → evidence classification
 src/scan.ts                 scan orchestration
 src/server.ts               Express API + static dashboard
 public/                     dashboard (plain HTML/CSS/JS, no build step)
+scripts/                    CI helpers
 test/                       unit tests
 ```
 
