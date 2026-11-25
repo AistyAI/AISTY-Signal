@@ -1,0 +1,16 @@
+node_modules/
+dist/
+data/
+.env
+*.key.json
+service-account*.json
+secrets/
+*.log
+.DS_Store
+.env.*
+!.env.example
+docs/screenshots/*.tmp
+
+# Google Cloud service account keys (any name)
+*-[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].json
+kvrun-platform-*.json

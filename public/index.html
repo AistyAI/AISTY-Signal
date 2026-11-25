@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aisty Signal</title>
+  <meta name="description" content="Open-source shadow AI discovery for Google Workspace and Microsoft 365.">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="/" aria-label="Aisty Signal, home">
+        <span class="brand-logo" data-logo></span>
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="brand-product">Signal</span>
+        <span class="tag">Open source</span>
+      </a>
+      <nav class="topnav" aria-label="Account">
+        <a class="btn btn-primary btn-sm" data-aisty-link target="_blank" rel="noopener">Get <span class="hide-sm">the full </span>Aisty<span class="hide-sm"> suite</span> <span aria-hidden="true">→</span></a>
+        <button class="btn btn-ghost btn-sm" id="logout" hidden>Sign out</button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="demo-banner" id="demo-banner" hidden>
+    <div class="wrap">This is <strong>demo mode</strong>, showing a fictional company, acme.com. Run <code>npm start</code> to connect your own organisation.</div>
+  </div>
+
+  <!-- Login -->
+  <main class="wrap login" id="login-view" hidden>
+    <div class="login-card">
+      <p class="eyebrow">Aisty Signal · Shadow AI discovery</p>
+      <h1>Sign in</h1>
+      <p class="muted">Enter your Aisty Signal admin password.</p>
+      <form id="login-form">
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" required>
+        <p class="error" id="login-error" role="alert"></p>
+        <button class="btn btn-primary" type="submit">Sign in</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- First-run setup -->
+  <main class="wrap login" id="setup-view" hidden>
+    <div class="login-card">
+      <p class="eyebrow">Welcome to Aisty Signal</p>
+      <h1>Set up your dashboard</h1>
+      <p class="muted">Create the admin password for this Aisty Signal install. To prove you control the server, enter the setup code shown in the terminal where Aisty Signal is running.</p>
+      <form id="setup-form">
+        <label for="setup-code">Setup code</label>
+        <input id="setup-code" class="mono" autocomplete="off" placeholder="XXXX-XXXX" required>
+        <label for="setup-pw">Admin password <span class="muted small">(at least 12 characters)</span></label>
+        <input id="setup-pw" type="password" autocomplete="new-password" minlength="12" required>
+        <label for="setup-pw2">Confirm password</label>
+        <input id="setup-pw2" type="password" autocomplete="new-password" minlength="12" required>
+        <p class="error" id="setup-error" role="alert"></p>
+        <button class="btn btn-primary" type="submit">Create password and continue</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- App -->
+  <main class="wrap" id="app-view" hidden>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Shadow AI discovery</p>
+        <h1 id="headline">Which AI tools has your organisation signed up for?</h1>
+        <p class="muted" id="subhead">Aisty Signal looks at sign-in grants, audit logs and the account emails AI vendors send to company addresses.</p>
+      </div>
+      <div class="hero-actions">
+        <button class="btn btn-primary" id="scan-btn">Run scan</button>
+        <p class="scan-status mono" id="scan-status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button role="tab" data-tab="overview" aria-selected="true">Overview</button>
+      <button role="tab" data-tab="people" aria-selected="false">People</button>
+      <button role="tab" data-tab="tools" aria-selected="false">AI tools</button>
+      <button role="tab" data-tab="evidence" aria-selected="false">Evidence</button>
+      <button role="tab" data-tab="connections" aria-selected="false">Connections</button>
+    </nav>
+
+    <!-- Overview -->
+    <section class="panel" data-panel="overview">
+      <div class="stats" id="stats"></div>
+      <div class="grid-2">
+        <div class="card">
+          <h2 class="card-title">AI tools by number of people</h2>
+          <div class="bars" id="tool-bars"></div>
+        </div>
+        <div class="card">
+          <h2 class="card-title">People using AI, by department</h2>
+          <div class="bars" id="dept-bars"></div>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <h2 class="card-title">Needs attention</h2>
+          <ul class="attention" id="attention"></ul>
+        </div>
+        <aside class="card card-dark cta">
+          <p class="eyebrow eyebrow-signal">From Aisty</p>
+          <h2>Found shadow AI? Replace it with one AI your security team can approve.</h2>
+          <p>Aisty gives your teams one governed AI operator. It runs on dedicated infrastructure, waits for approval where you require it, and keeps an audit trail of every action.</p>
+          <div class="cta-actions">
+            <a class="btn btn-primary" data-aisty-link target="_blank" rel="noopener">Explore Aisty</a>
+            <a class="btn btn-outline-light" data-aisty-book target="_blank" rel="noopener">Book a call</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- People -->
+    <section class="panel" data-panel="people" hidden>
+      <div class="toolbar">
+        <input type="search" id="people-search" placeholder="Search people, departments or tools" aria-label="Search people">
+        <select id="people-dept" aria-label="Filter by department"><option value="">All departments</option></select>
+        <select id="people-conf" aria-label="Minimum confidence">
+          <option value="low">Any confidence</option>
+          <option value="medium">Medium and high</option>
+          <option value="high" selected>High only</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr><th>Person</th><th>Department</th><th>AI tools</th><th class="num">Tools</th></tr></thead>
+          <tbody id="people-body"></tbody>
+        </table>
+      </div>
+      <p class="empty" id="people-empty" hidden>No people match these filters.</p>
+    </section>
+
+    <!-- Tools -->
+    <section class="panel" data-panel="tools" hidden>
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr><th>AI tool</th><th>Category</th><th class="num">People</th><th class="num">Paid</th><th>Who</th></tr></thead>
+          <tbody id="tools-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Evidence -->
+    <section class="panel" data-panel="evidence" hidden>
+      <div class="toolbar">
+        <input type="search" id="ev-search" placeholder="Search evidence" aria-label="Search evidence">
+        <select id="ev-conf" aria-label="Confidence">
+          <option value="">All confidence levels</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+        <a class="btn btn-ghost" href="/api/export.csv" download>Export CSV</a>
+      </div>
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr><th>Person</th><th>AI tool</th><th>Confidence</th><th>Paid</th><th>First seen</th><th>Last seen</th><th>Evidence</th></tr></thead>
+          <tbody id="ev-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Connections -->
+    <section class="panel" data-panel="connections" hidden>
+      <div class="notice" id="consent-notice" hidden role="status"></div>
+      <div class="grid-2">
+        <div class="card connector" data-connector="google">
+          <div class="connector-head">
+            <div class="connector-id"><span class="connector-mark" aria-hidden="true">G</span><h2 class="card-title">Google Workspace</h2></div>
+            <span class="pill" data-state></span>
+          </div>
+          <p class="muted">Finds AI tools people signed in to with Google, plus sign-up, login and receipt emails from AI vendors in every Gmail inbox (sender and subject only).</p>
+          <dl class="kv" data-kv></dl>
+          <div class="row" data-actions></div>
+          <p class="small test-result" data-test-result aria-live="polite"></p>
+        </div>
+        <div class="card connector" data-connector="microsoft">
+          <div class="connector-head">
+            <div class="connector-id"><span class="connector-mark" aria-hidden="true">M</span><h2 class="card-title">Microsoft 365</h2></div>
+            <span class="pill" data-state></span>
+          </div>
+          <p class="muted">Finds AI apps people signed in to with Microsoft, apps approved for the whole organisation, and AI vendor emails in every Outlook mailbox (sender and subject only).</p>
+          <dl class="kv" data-kv></dl>
+          <div class="row" data-actions></div>
+          <p class="small test-result" data-test-result aria-live="polite"></p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h2 class="card-title">Last scan</h2>
+          <div id="last-scan" class="small"></div>
+        </div>
+        <div class="card">
+          <h2 class="card-title">Import card or expense statement</h2>
+          <p class="muted small">Upload a CSV with a description or merchant column, plus an email or employee name column if you have one. Rows that match a known AI vendor are added as paid subscriptions. The file is processed on this server only.</p>
+          <div class="row">
+            <input type="file" id="csv-file" accept=".csv,text/csv" aria-label="CSV file">
+            <button class="btn btn-ghost btn-sm" id="csv-upload">Import</button>
+          </div>
+          <p class="small" id="csv-result" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h2 class="card-title">Scan settings</h2>
+          <form id="scan-settings" class="form">
+            <label for="set-lookback">Look back (days)</label>
+            <input id="set-lookback" type="number" min="1" max="3650" required>
+            <label for="set-max">Max messages read per mailbox</label>
+            <input id="set-max" type="number" min="10" max="10000" required>
+            <label class="check"><input id="set-subjects" type="checkbox"> Store email subject lines (untick to keep the sender only)</label>
+            <div class="row"><button class="btn btn-ghost btn-sm" type="submit">Save settings</button><span class="small muted" id="scan-settings-result" aria-live="polite"></span></div>
+          </form>
+        </div>
+        <div class="card">
+          <h2 class="card-title">Admin password</h2>
+          <form id="pw-form" class="form">
+            <label for="pw-current">Current password</label>
+            <input id="pw-current" type="password" autocomplete="current-password" required>
+            <label for="pw-next">New password <span class="muted small">(at least 12 characters)</span></label>
+            <input id="pw-next" type="password" autocomplete="new-password" minlength="12" required>
+            <div class="row"><button class="btn btn-ghost btn-sm" type="submit">Change password</button><span class="small muted" id="pw-result" aria-live="polite"></span></div>
+          </form>
+          <p class="small muted" id="pw-demo" hidden>In demo mode there's no password. When you run Aisty Signal for real, you create one on first start and can change it here.</p>
+          <p class="small muted" id="pw-env" hidden>This password is set by <code>SIGNAL_ADMIN_PASSWORD</code> in <code>.env</code>, so it can't be changed here.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">Your data</h2>
+        <p class="muted small">Results and connection details are stored on this server in <code>data/</code> and nowhere else. Credentials are encrypted. Aisty Signal never reads email bodies, and it sends nothing to Aisty or any third party.</p>
+        <button class="btn btn-danger btn-sm" id="clear-data">Delete all results</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Person / tool detail drawer -->
+  <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
+  <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden>
+    <div class="drawer-head">
+      <div>
+        <p class="eyebrow" id="drawer-eyebrow"></p>
+        <h2 id="drawer-title"></h2>
+        <p class="muted small" id="drawer-sub"></p>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="drawer-close" aria-label="Close">Close</button>
+    </div>
+    <div id="drawer-body"></div>
+  </aside>
+
+  <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>
+        <span class="brand-logo brand-logo-sm" data-logo></span>
+        <p class="small muted">Aisty Signal is free, open-source software (MIT). It runs on your own infrastructure, and your data stays there.</p>
+      </div>
+      <p class="small muted">Built by <a data-aisty-link target="_blank" rel="noopener">Aisty</a>: governed AI operations for teams whose security review is the hard part.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

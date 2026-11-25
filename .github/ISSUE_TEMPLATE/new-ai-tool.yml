@@ -1,0 +1,37 @@
+name: Add an AI tool
+description: Suggest an AI tool for the detection catalogue
+title: "Add AI tool: "
+labels: [catalogue]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Tool name
+      placeholder: e.g. Granola
+    validations:
+      required: true
+  - type: input
+    id: website
+    attributes:
+      label: Website
+      placeholder: https://
+    validations:
+      required: true
+  - type: textarea
+    id: domains
+    attributes:
+      label: Sending email domains
+      description: Domains the tool sends sign-up, login or receipt emails from (check the From address of a real email).
+      placeholder: granola.ai, mail.granola.ai
+    validations:
+      required: true
+  - type: input
+    id: app
+    attributes:
+      label: OAuth app name
+      description: The name shown on "Sign in with Google/Microsoft" consent screens, if known.
+  - type: input
+    id: billing
+    attributes:
+      label: Card statement text
+      description: How charges appear on a card statement, if known.

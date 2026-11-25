@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/AistyAI/AISTY-Signal/security/advisories/new
+    about: Please report security issues privately, not as a public issue.
+  - name: Aisty (commercial suite)
+    url: https://www.aisty.ai/?utm_source=aisty-signal&utm_medium=github
+    about: Questions about Aisty's governed AI platform.

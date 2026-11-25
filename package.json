@@ -1,0 +1,54 @@
+{
+  "name": "aisty-signal",
+  "version": "0.1.0",
+  "description": "Open-source shadow AI discovery: find every AI tool your people have signed up for with a company email, across Google Workspace and Microsoft 365. By Aisty.",
+  "license": "MIT",
+  "author": "Aisty (One To Infinity Power LTD) <https://www.aisty.ai>",
+  "homepage": "https://www.aisty.ai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AistyAI/AISTY-Signal.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AistyAI/AISTY-Signal/issues"
+  },
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=22.9"
+  },
+  "scripts": {
+    "dev": "tsx watch --env-file-if-exists=.env src/server.ts",
+    "demo": "cross-env SIGNAL_DEMO=true tsx src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node --env-file-if-exists=.env dist/server.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "tsx --test test/*.test.ts"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "google-auth-library": "^9.15.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.0",
+    "cross-env": "^7.0.3",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  },
+  "keywords": [
+    "shadow-ai",
+    "ai-governance",
+    "ai-discovery",
+    "saas-discovery",
+    "google-workspace",
+    "microsoft-365",
+    "microsoft-graph",
+    "entra-id",
+    "oauth",
+    "it-security",
+    "compliance",
+    "self-hosted",
+    "aisty"
+  ]
+}
